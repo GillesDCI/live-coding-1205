@@ -2,6 +2,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import passport from 'passport';
 
 
 //importing routes 
@@ -9,6 +10,9 @@ import teaRoutes from './routes/teaRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import settingsRoutes from './routes/settingsRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+
+//import passport config 
+import configurePassport from './passport-config.js';
 
 
 dotenv.config();
@@ -18,6 +22,11 @@ const app = express();
 
 //allows us to send json information to the server (this is configuration)
 app.use(express.json());
+
+//initialize passport 
+app.use(passport.initialize());
+//configure passport using our function.
+configurePassport(passport);
 
 //connect to the database 
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`)

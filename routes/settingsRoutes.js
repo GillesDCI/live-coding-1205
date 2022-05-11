@@ -1,10 +1,9 @@
 import express from 'express';
+import { getVersion } from '../controllers/settingsController.js';
 
 const router = express.Router();
 
-router.get('/version', (req, res) => {
-    return res.status(200).json({version:'7.0.1'});
-})
+router.get('/version', getVersion)
 
 
 export default router;
