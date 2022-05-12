@@ -63,6 +63,15 @@ export const register = async(req, res) => {
             email:req.body.email,
             password:hashedPassword
         })
+        
+
+        //roles: "ADMIN,SALES,ACCOUNTANT"
+        const roles = req.body.roles.split(',');
+
+        roles.forEach((role) => {
+            userToAdd.roles.push(role);
+        });
+
         //alternative way of creating a user.
         const resultUser = await userToAdd.save();
 
@@ -70,4 +79,13 @@ export const register = async(req, res) => {
     } catch (error) {
         return res.status(400).json({message:'Error happened', error:error})
     }
+}
+
+/**
+ * Controller method to get the user profile
+ * @param {*} req 
+ * @param {*} res 
+ */
+export const getProfile = async(req, res) => {
+    return res.status(200).json({profile:req.user});
 }

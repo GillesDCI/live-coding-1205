@@ -58,7 +58,17 @@ export const getOrdersPaging = async(req ,res) => {
  */
 export const getOrderByUserId = async(req, res) => {
     const orders = await Order.find({user:req.params.userid})
-    res.status(200).json(orders);
+    return res.status(200).json(orders);
+}
+
+/**
+ * Controller method that gets the orders for the authenticated user
+ * @param {*} req 
+ * @param {*} res 
+ */
+export const getMyOrders = async(req, res) => {
+    const orders = await Order.find({user:req.user._id})
+    return res.status(200).json(orders);
 }
 
 /**
@@ -82,4 +92,9 @@ export const createOrder = async(req, res) => {
     }
 }
 
-export default {getAllOrders, getOrdersPaging, getOrdersPagingSkipLimit, getOrderByUserId, createOrder}
+export default {getAllOrders, 
+                getOrdersPaging, 
+                getOrdersPagingSkipLimit, 
+                getOrderByUserId, 
+                createOrder, 
+                getMyOrders}

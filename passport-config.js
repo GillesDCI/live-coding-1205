@@ -12,7 +12,7 @@ const configureJwtStrategy = (passport) => {
     },(jwtPayload, done) => {
         return( 
            User.findById(jwtPayload.sub)
-               .select("_id firstname lastname username email")
+               .select("_id firstname lastname username email roles")
                .then((user)=> {
                 return done(null,user)
                })
